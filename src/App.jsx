@@ -60,9 +60,13 @@ const App = ()=>{
 
   },[posFen])
 
+  const [promote, setPromote] = useState(0);
+
   useEffect(()=>{
     
     //[[from to colors],[]]
+
+    // Promotion  e7e8q
     if(engineEvaluation.bestmoves && engineEvaluation.evals){
       console.log(engineEvaluation.bestmoves)
       console.log(engineEvaluation.evals)
@@ -74,23 +78,19 @@ const App = ()=>{
           colors[i]
         ])
       }
-      setArrows([])
       setArrows(tupleArrow)
     }
-    console.log(arrows)
-    
   },[engineEvaluation])
 
 
   return (
     <div className="w-96 border-solid bg-slate-600">
       <h1 className="text-white bg-slate-950 text-center text-3xl pt-2 pb-2 font-bold">Chess Helper</h1>
-      <div className="w-80 ml-auto mr-auto mt-3" onClick={()=>{
-        orient == "white" ? setOrient("black") : setOrient("white") 
-      }}>
+      <div className="w-80 ml-auto mr-auto mt-3" onClick={()=> promote == 0 ? setPromote(1) : setPromote(0)}>
         <Chessboard id="board1" position={posFen} boardOrientation={side} 
         arePiecesDraggable = {false}
         customArrows={arrows}
+        key={`promoteXXX${promote}`}
         />
         <p className="text-white text-3xl text-center font-mono pt-3 pb-3 bg-slate-900 rounded-2xl mt-4">{engineEvaluation.score}</p>
         
